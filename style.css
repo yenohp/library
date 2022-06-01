@@ -1,0 +1,251 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* =========================================================== */
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+:root {
+    --content-color: #e2e8f0;
+    --header-color: #f8fafc;
+    --box-shadow: #94a3b8;
+    --overlay: rgba(0, 0, 0, 0.5);
+
+    --body-grid: 0.5fr 3fr 0.25fr/0.5fr 3fr 0.5fr;
+    --header-grid: 1fr/0.75fr 2fr 0.5fr;
+
+    --large-font: 3rem;
+
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    grid-template: var(--body-grid);
+
+    background-color: var(--content-color);
+}
+
+/* =========================================================== */
+.header {
+    grid-area: 1/1/2/4;
+    display: grid;
+    grid-template: var(--header-grid);
+    background-color: var(--header-color);
+    box-shadow: 0px 5px 20px var(--box-shadow);
+}
+
+.logo {
+    font-size: var(--large-font);
+    font-weight: 800;
+
+    justify-self: center;
+    align-self: center;
+}
+
+/* =========================================================== */
+.content {
+    grid-area: 2/1/3/4;
+    display: grid;
+    grid-template: var(--body-grid);
+}
+
+.addBook {
+    height: 75%;
+    grid-area: 1/2/2/3;
+
+    justify-self: center;
+    align-self: flex-end;
+
+    background-color: var(--content-color);
+    border: none;
+
+    font-size: var(--large-font);
+    font-weight: 700;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transform: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+}
+
+.closeButton {
+    float: right;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+}
+
+.closeButton:hover {
+    background-color: darkgray;
+}
+
+.showModal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+/* =========================================================== */
+footer {
+    grid-area: 3/1/4/4;
+}
