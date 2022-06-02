@@ -149,7 +149,7 @@ html {
     --header-grid: 1fr/0.75fr 2fr 0.5fr;
 
     --large-font: 3rem;
-
+    --normal-font: 2rem;
 }
 
 body {
@@ -243,6 +243,33 @@ body {
     visibility: visible;
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.shelf {
+    grid-area: 2/2/3/3;
+    display: grid;
+    grid-template: 1fr/repeat(3, 1fr);
+    gap: .5rem;
+}
+
+.bookCard {
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.bookCard>span {
+    font-size: var(--normal-font);
+}
+
+.titleP {
+    font-weight: 600;
 }
 
 /* =========================================================== */

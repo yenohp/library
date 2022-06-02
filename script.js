@@ -3,9 +3,15 @@ const addBttn = document.querySelector('.addBook');
 const closeBttn = document.querySelector('.closeButton');
 const submitBttn = document.querySelector('.submitButton');
 const form = document.querySelector('form');
+const content = document.querySelector('.content');
+const shelf = document.querySelector('.shelf');
+
+const readBttns = document.getElementsByClassName('.readButton');
 const inputs = Array.from(document.querySelectorAll('input'));
 
-const deleteButtons = Array.from(document.querySelectorAll('.deleteButton'));
+// const readButtons = Array.from(document.querySelectorAll('.readButton'));
+// const deleteButtons = Array.from(document.querySelectorAll('.deleteButton'));
+
 let myLibrary = [];
 let dataCounter = 0;
 
@@ -25,7 +31,6 @@ function toggleModal() {
 }
 
 function toggleRead() {
-
 }
 // Disables modal if overlay area is clicked
 function windowOnClick(event) {
@@ -53,13 +58,34 @@ function clearForm() {
 
 function createBookElement(book) {
     console.log('make the card');
+    // createCardElements();
     const bookCard = document.createElement('div');
     bookCard.classList.add('bookCard');
-
+    const titleP = document.createElement('span');
+    titleP.classList.add('titleP');
+    titleP.innerText = book.title;
+    const authorP = document.createElement('span');
+    authorP.classList.add('authorP');
+    authorP.innerText = book.author;
+    const pagesP = document.createElement('span');
+    pagesP.classList.add('pagesP');
+    pagesP.innerText = `Number of pages: ${book.pages}`;
     const readBttn = document.createElement('button');
     readBttn.classList.add('readButton');
+    if (book.read) readBttn.innerText = "Read";
+    else readBttn.innerText = "Hasn't read";
     const deleteBttn = document.createElement('button');
     deleteBttn.classList.add('deleteButton');
+    deleteBttn.innerText = "Delete";
+
+    shelf.appendChild(bookCard);
+    bookCard.appendChild(titleP);
+    bookCard.appendChild(authorP);
+    bookCard.appendChild(pagesP);
+    bookCard.appendChild(readBttn);
+    bookCard.appendChild(deleteBttn);
+    bookCard.setAttribute('data-key', dataCounter);
+    dataCounter++;
 }
 addBttn.addEventListener('click', toggleModal);
 closeBttn.addEventListener('click', toggleModal);
