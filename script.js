@@ -5,13 +5,8 @@ const submitBttn = document.querySelector('.submitButton');
 const form = document.querySelector('form');
 const content = document.querySelector('.content');
 const shelf = document.querySelector('.shelf');
-
-const readBttns = document.getElementsByClassName('.readButton');
+const readBttns = Array.from(document.querySelectorAll('.readButton'));
 const inputs = Array.from(document.querySelectorAll('input'));
-
-// const readButtons = Array.from(document.querySelectorAll('.readButton'));
-// const deleteButtons = Array.from(document.querySelectorAll('.deleteButton'));
-
 let myLibrary = [];
 let dataCounter = 0;
 
@@ -30,7 +25,8 @@ function toggleModal() {
     modal.classList.toggle('showModal');
 }
 
-function toggleRead() {
+function toggleRead(bttn) {
+    bttn.classList.toggle('active');
 }
 // Disables modal if overlay area is clicked
 function windowOnClick(event) {
@@ -58,35 +54,61 @@ function clearForm() {
 
 function createBookElement(book) {
     console.log('make the card');
-    // createCardElements();
+    createCardElements(book);
+}
+
+function createCardElements(book) {
     const bookCard = document.createElement('div');
     bookCard.classList.add('bookCard');
+
     const titleP = document.createElement('span');
     titleP.classList.add('titleP');
     titleP.innerText = book.title;
+
     const authorP = document.createElement('span');
     authorP.classList.add('authorP');
     authorP.innerText = book.author;
+
     const pagesP = document.createElement('span');
     pagesP.classList.add('pagesP');
     pagesP.innerText = `Number of pages: ${book.pages}`;
+
     const readBttn = document.createElement('button');
     readBttn.classList.add('readButton');
-    if (book.read) readBttn.innerText = "Read";
+    if (book.read) {
+        readBttn.innerText = "Read";
+        readBttn.classList.add('active');
+    }
     else readBttn.innerText = "Hasn't read";
+
     const deleteBttn = document.createElement('button');
     deleteBttn.classList.add('deleteButton');
     deleteBttn.innerText = "Delete";
 
-    shelf.appendChild(bookCard);
     bookCard.appendChild(titleP);
     bookCard.appendChild(authorP);
     bookCard.appendChild(pagesP);
     bookCard.appendChild(readBttn);
     bookCard.appendChild(deleteBttn);
+
+    readBttn.setAttribute('data-key', dataCounter);
+    deleteBttn.setAttribute('data-key', dataCounter);
     bookCard.setAttribute('data-key', dataCounter);
+    shelf.appendChild(bookCard);
+    readBttns.push(readBttn);
+    createListeners();
     dataCounter++;
 }
+
+function createListeners() {
+    for (let bttn of readBttns) {
+        bttn.addEventListener('click', (e) => {
+            console.log(`click ${e.target.getAttribute('data-key')}`)
+            toggleRead(bttn);
+        });
+    }
+}
+
 addBttn.addEventListener('click', toggleModal);
 closeBttn.addEventListener('click', toggleModal);
 window.addEventListener('click', windowOnClick);
@@ -98,3 +120,5 @@ submitBttn.addEventListener('click', (e) => {
     createBook(formData);
     clearForm();
 })
+
+
