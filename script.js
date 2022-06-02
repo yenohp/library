@@ -5,7 +5,6 @@ const submitBttn = document.querySelector('.submitButton');
 const form = document.querySelector('form');
 const content = document.querySelector('.content');
 const shelf = document.querySelector('.shelf');
-const readBttns = Array.from(document.querySelectorAll('.readButton'));
 const inputs = Array.from(document.querySelectorAll('input'));
 let myLibrary = [];
 let dataCounter = 0;
@@ -25,8 +24,10 @@ function toggleModal() {
     modal.classList.toggle('showModal');
 }
 
-function toggleRead(bttn) {
-    bttn.classList.toggle('active');
+function toggleRead() {
+    if (this.classlist.length == 2) this.classlist.push();
+    else this.classlist.add('active');
+
 }
 // Disables modal if overlay area is clicked
 function windowOnClick(event) {
@@ -81,6 +82,7 @@ function createCardElements(book) {
     }
     else readBttn.innerText = "Hasn't read";
 
+    readBttn.setAttribute('onclick', toggleRead);
     const deleteBttn = document.createElement('button');
     deleteBttn.classList.add('deleteButton');
     deleteBttn.innerText = "Delete";
@@ -95,18 +97,7 @@ function createCardElements(book) {
     deleteBttn.setAttribute('data-key', dataCounter);
     bookCard.setAttribute('data-key', dataCounter);
     shelf.appendChild(bookCard);
-    readBttns.push(readBttn);
-    createListeners();
     dataCounter++;
-}
-
-function createListeners() {
-    for (let bttn of readBttns) {
-        bttn.addEventListener('click', (e) => {
-            console.log(`click ${e.target.getAttribute('data-key')}`)
-            toggleRead(bttn);
-        });
-    }
 }
 
 addBttn.addEventListener('click', toggleModal);
