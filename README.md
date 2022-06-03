@@ -16,7 +16,6 @@ Add a button on each book's display to change its read status.
 
 
 Thoughts --
-
 Delete button
 * Need to do two things: delete the card itself, remove the object from the array
     - Delete the parent Node? 

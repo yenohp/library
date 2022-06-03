@@ -25,10 +25,16 @@ function toggleModal() {
 }
 
 function toggleRead() {
-    if (this.classlist.length == 2) this.classlist.push();
-    else this.classlist.add('active');
-
+    if (this.classList.length == 2) {
+        this.classList.remove('active');
+        this.innerText = "Hasn't read";
+    }
+    else {
+        this.classList.add('active');
+        this.innerText = "Read";
+    }
 }
+
 // Disables modal if overlay area is clicked
 function windowOnClick(event) {
     if (event.target == modal) {
@@ -76,16 +82,20 @@ function createCardElements(book) {
 
     const readBttn = document.createElement('button');
     readBttn.classList.add('readButton');
+    readBttn.addEventListener('click', toggleRead);
     if (book.read) {
         readBttn.innerText = "Read";
         readBttn.classList.add('active');
     }
-    else readBttn.innerText = "Hasn't read";
+    else {
+        readBttn.innerText = "Hasn't read"
+    };
 
-    readBttn.setAttribute('onclick', toggleRead);
+
     const deleteBttn = document.createElement('button');
     deleteBttn.classList.add('deleteButton');
     deleteBttn.innerText = "Delete";
+    deleteBttn.addEventListener('click', deleteBook);
 
     bookCard.appendChild(titleP);
     bookCard.appendChild(authorP);
@@ -98,6 +108,20 @@ function createCardElements(book) {
     bookCard.setAttribute('data-key', dataCounter);
     shelf.appendChild(bookCard);
     dataCounter++;
+}
+
+function deleteBook() {
+    // Remove from myLibrary[]
+    myLibrary.splice(this.getAttribute('data-key'), 1);
+
+    // Decrease and reassign dataCounter values
+    dataCounter--;
+    console.log(this.parentElement.parentElement.childNodes);
+
+    this.parentElement.parentElement.replaceChild(this.parentElement.nextSibling, this.parentElement);
+
+    console.log(this.parentElement.parentElement.childNodes);
+    // Delete the book element
 }
 
 addBttn.addEventListener('click', toggleModal);
